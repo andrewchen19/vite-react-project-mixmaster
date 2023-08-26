@@ -1,3 +1,5 @@
 <!-- if we want to deploy project with React Router at Netlify  -->
-<!-- we must add this file and codes underline ;otherwise, it won't work -->
-<!-- /* /index.html 200 -->
+<!-- we must create this file and add some codes ;otherwise, it will have page not found error -->
+
+<!-- we're telling Netlify to redirect all the routes to the index.html file -->
+/* /index.html 200
