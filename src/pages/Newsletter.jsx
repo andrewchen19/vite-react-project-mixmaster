@@ -31,7 +31,7 @@ export const action = async ({ request }) => {
 
 const Newsletter = () => {
   const navigation = useNavigation();
-  // console.log(navigation)
+  // console.log(navigation);
   const isSubmit = navigation.state === "submitting";
 
   return (

@@ -9,6 +9,7 @@ const cocktailSearchUrl =
 
 import { useQuery } from "@tanstack/react-query";
 
+// utility function
 const searchCocktailQuery = (searchTerm) => {
   return {
     queryKey: ["search", searchTerm || "all"],
@@ -41,7 +42,6 @@ export const loader =
     // If the data is not in the cache or the cache has become stale, it will trigger a fetch to obtain the data
     await queryClient.ensureQueryData(searchCocktailQuery(searchTerm));
 
-    // console.log(response);
     return { searchTerm };
   };
 
