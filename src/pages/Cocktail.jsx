@@ -18,14 +18,15 @@ const singleCocktailQuery = (id) => {
   };
 };
 
-export const loader = (queryClient) => async (data) => {
-  // console.log(data);
-  const id = data.params.id;
+export const loader =
+  (queryClient) =>
+  async ({ params }) => {
+    const id = params.id;
 
-  await queryClient.ensureQueryData(singleCocktailQuery(id));
+    await queryClient.ensureQueryData(singleCocktailQuery(id));
 
-  return { id };
-};
+    return { id };
+  };
 
 const Cocktail = () => {
   const { id } = useLoaderData();
