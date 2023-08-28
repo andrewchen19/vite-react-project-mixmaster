@@ -53,6 +53,7 @@ const Home = () => {
   // To fixed this issue -> set query in loader function
   const { isLoading, data: drinks } = useQuery(searchCocktailQuery(searchTerm));
 
+  // // local loading
   // if (isLoading) {
   //   return <h2>LLLLLoading...</h2>;
   // }
