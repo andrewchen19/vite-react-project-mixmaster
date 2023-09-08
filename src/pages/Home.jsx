@@ -7,17 +7,11 @@ import CocktailList from "../components/CocktailList";
 const cocktailSearchUrl =
   "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
 
-import { useQuery } from "@tanstack/react-query";
-
 // utility function
 const searchCocktailQuery = (searchTerm) => {
   return {
     queryKey: ["search", searchTerm || "all"],
-    queryFn: async () => {
-      const response = await axios.get(cocktailSearchUrl + searchTerm);
-      // console.log(response);
-      return response.data.drinks;
-    },
+    queryFn: () => axios.get(cocktailSearchUrl + searchTerm),
   };
 };
 
@@ -40,23 +34,17 @@ export const loader =
     // pre-fetch and ensure that the data for a given query is available in the cache
     // If the data is already in the cache, this method will return immediately without making a new request
     // If the data is not in the cache or the cache has become stale, it will trigger a fetch to obtain the data
-    await queryClient.ensureQueryData(searchCocktailQuery(searchTerm));
+    const response = await queryClient.ensureQueryData(
+      searchCocktailQuery(searchTerm)
+    );
+    // console.log(response);
+    const drinks = response.data.drinks;
 
-    return { searchTerm };
+    return { searchTerm, drinks };
   };
 
 const Home = () => {
-  const { searchTerm } = useLoaderData();
-  // 使用 useQuery 可以 caching data (prevent fetch same request)
-  // 但要注意，使用後， we are not loading before the page is displayed (global loading)
-  // Now we're loading when the page is displayed (local loading)
-  // To fixed this issue -> set query in loader function
-  const { isLoading, data: drinks } = useQuery(searchCocktailQuery(searchTerm));
-
-  // // local loading
-  // if (isLoading) {
-  //   return <h2>LLLLLoading...</h2>;
-  // }
+  const { searchTerm, drinks } = useLoaderData();
 
   return (
     <>
